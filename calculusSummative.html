@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html> 
+ <head>
+    <title>Farris Matar's Summative</title> 
+</head>
+ <body>
+    <p align="center"> 
+	<!--This draws the Canvas on the webpage -->
+      <canvas id="mycanvas"></canvas> 
+    </p>
+ </body>
+ 
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        // Size and framerate of the canvas
+        var WIDTH = 1500;
+        var HEIGHT = 700;
+		size(WIDTH, HEIGHT); 
+        frameRate(60);
+        scene = 1;
+
+        // Colours
+        var RED = color(204, 20, 20);
+        var LIGHT_RED = color(232, 122, 122);
+        var LIGHT_ORANGE = color(255, 149, 35);
+        var LIGHTER_ORANGE = color(255, 187, 114);
+        var YELLOW = color(225, 225, 0);
+        var LIGHT_YELLOW = color(255, 255, 90);
+        var GREEN = color(24, 204, 42);
+        var LIGHT_GREEN = color(122, 232, 122)
+        var LIGHT_LIME = color(131, 255, 124);
+        var LIGHTER_LIME = color(182, 255, 178);
+        var CYAN = color(23, 167, 211);
+        var LIGHT_CYAN = color(103, 203, 234);
+        var LIGHT_TEAL = color(91, 230, 255);
+        var LIGHTER_TEAL = color(150, 239, 255);
+        var DARK_GRAY = color(90, 90, 90);
+        var DARKER_GRAY = color(50, 50, 50);
+        var LIGHT_GRAY = color(186, 186, 186);
+        var LIGHTISH_GRAY = color(130, 130, 130);
+        var LIGHTEST_GRAY = color(215, 215, 215);
+
+        var justClicked = false;
+        var justClickedTimer = 0;
+
+        // Image URL's
+        var menuBackground = "https://farrismat.files.wordpress.com/2018/12/Math-Background.png?w=900";
+        var menuBackgroundImg = new Image;
+        menuBackgroundImg.src = menuBackground;
+
+        var menuTitle = "https://farrismat.files.wordpress.com/2018/12/Menu-Title1.png?w=900";
+        var menuTitleImg = new Image;
+        menuTitleImg.src = menuTitle;
+
+        var problemPageTitle = "https://farrismat.files.wordpress.com/2019/01/problem-title.png";
+        var problemPageTitleImg = new Image;
+        problemPageTitleImg.src = problemPageTitle;
+
+        var problem1TitleImg = new Image;
+        problem1TitleImg.src = "https://farrismat.files.wordpress.com/2019/01/problem1description.png";
+
+        var problem1Highlight1Img = new Image;
+        problem1Highlight1Img.src = "https://farrismat.files.wordpress.com/2019/01/problem1highlight1.png";
+
+        var problem1SolutionImg = new Image;
+        problem1SolutionImg.src = "https://farrismat.files.wordpress.com/2019/01/problem1solution.png";
+        var solution1Visible = false;
+        
+        var problem2TitleImg = new Image;
+        problem2TitleImg.src = "https://farrismat.files.wordpress.com/2019/01/problem-2__description.png";
+
+        var problem2Highlight1Img = new Image;
+        problem2Highlight1Img.src = "https://farrismat.files.wordpress.com/2019/01/problem2highlight1.png";
+
+        var problem2Highlight2Img = new Image;
+        problem2Highlight2Img.src = "https://farrismat.files.wordpress.com/2019/01/problem2highlight2.png";
+
+        var problem2SolutionImg = new Image;
+        problem2SolutionImg.src = "https://farrismat.files.wordpress.com/2019/01/problem2solution.png";
+        var solution2Visible = false;
+
+        var problem3Title = "https://farrismat.files.wordpress.com/2019/01/problem_3_description.png";
+        var problem3TitleImg = new Image;
+        problem3TitleImg.src = problem3Title;
+
+        var problem3Highlight1 = "https://farrismat.files.wordpress.com/2019/01/problem3highlight1.png";
+        var problem3Highlight1Img = new Image;
+        problem3Highlight1Img.src = problem3Highlight1;
+
+        var problem3Highlight2 = "https://farrismat.files.wordpress.com/2019/01/problem3highlight2.png";
+        var problem3Highlight2Img = new Image;
+        problem3Highlight2Img.src = problem3Highlight2;
+
+        var problem3Highlight3 = "https://farrismat.files.wordpress.com/2019/01/problem3highlight3.png";
+        var problem3Highlight3Img = new Image;
+        problem3Highlight3Img.src = problem3Highlight3;
+
+        var problem3Solution = "https://farrismat.files.wordpress.com/2019/01/problem3__solution.png";
+        var problem3SolutionImg = new Image;
+        problem3SolutionImg.src = problem3Solution;
+        solution3Visible = false;
+
+        // Solution images
+        // Solution 1
+        var solution1_1Img = new Image;
+        solution1_1Img.src = "https://farrismat.files.wordpress.com/2019/01/solution-1-step-1.png";
+
+        var solution1_2Img = new Image;
+        solution1_2Img.src = "https://farrismat.files.wordpress.com/2019/01/solution-1-step-2.png";
+
+        var solution1_3Img = new Image;
+        solution1_3Img.src = "https://farrismat.files.wordpress.com/2019/01/solution-1-step-3.png";
+
+        var solution1_4Img = new Image;
+        solution1_4Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1step4.png";
+
+        var solution1_5Img = new Image;
+        solution1_5Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1step5.png";
+
+        var solution1_6Img = new Image;
+        solution1_6Img.src = "https://farrismat.files.wordpress.com/2019/01/solution-1-step-6.png";
+
+        var solution1Index = 0;
+        var solution1Parts = [solution1_1Img, solution1_2Img, solution1_3Img, solution1_4Img, solution1_5Img, solution1_6Img];
+
+        var solution1Highlight1Img = new Image;
+        solution1Highlight1Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1highlight1.png";
+
+        var solution1Highlight2Img = new Image;
+        solution1Highlight2Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1highlight2.png";
+
+        var solution1Highlight3Img = new Image;
+        solution1Highlight3Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1highlight3.png";
+
+        var solution1Highlight4Img = new Image;
+        solution1Highlight4Img.src = "https://farrismat.files.wordpress.com/2019/01/solution1highlight4.png";
+
+        // Solution 2
+        var solution2_1Img = new Image;
+        solution2_1Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2_step_1.png"
+
+        var solution2_2Img = new Image;
+        solution2_2Img.src = "https://farrismat.files.wordpress.com/2019/01/solution_2-step_2.png";
+
+        var solution2_3Img = new Image;
+        solution2_3Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2step3.png";
+
+        var solution2_4Img = new Image;
+        solution2_4Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2step4.png";
+
+        var solution2_5Img = new Image;
+        solution2_5Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2step5.png";
+
+        var solution2Index = 0;
+        var solution2Parts = [solution2_1Img, solution2_2Img, solution2_3Img, solution2_4Img, solution2_5Img];
+
+        var solution2Highlight1Img = new Image;
+        solution2Highlight1Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight1.png";
+
+        var solution2Highlight2Img = new Image;
+        solution2Highlight2Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight2.png";
+
+        var solution2Highlight3Img = new Image;
+        solution2Highlight3Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2_highlight3.png";
+        
+        var solution2Highlight4Img = new Image;
+        solution2Highlight4Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight4.png";
+
+        var solution2Highlight5Img = new Image;
+        solution2Highlight5Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight5.png";
+
+        var solution2Highlight6Img = new Image;
+        solution2Highlight6Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight6.png";
+
+        var solution2Highlight7Img = new Image;
+        solution2Highlight7Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight7.png";
+
+        var solution2Highlight8Img = new Image;
+        solution2Highlight8Img.src = "https://farrismat.files.wordpress.com/2019/01/solution2highlight8.png";
+
+        // Solution 3
+        var solution3_1 = "https://farrismat.files.wordpress.com/2019/01/solution3step1.png";
+        var solution3_1Img = new Image;
+        solution3_1Img.src = solution3_1;
+
+        var solution3_2 = "https://farrismat.files.wordpress.com/2019/01/solution-3-step-2.png";
+        var solution3_2Img = new Image;
+        solution3_2Img.src = solution3_2;
+
+        var solution3_3 = "https://farrismat.files.wordpress.com/2019/01/solution3step3.png";
+        var solution3_3Img = new Image;
+        solution3_3Img.src = solution3_3;
+
+        var solution3_4 = "https://farrismat.files.wordpress.com/2019/01/solution-3-step-4.png";
+        var solution3_4Img = new Image;
+        solution3_4Img.src = solution3_4;
+
+        var solution3Parts = [solution3_1Img, solution3_2Img, solution3_3Img, solution3_4Img];
+        solution3Index = 0;
+
+        var solution3Highlight1 = "https://farrismat.files.wordpress.com/2019/01/solution3highlight1.png";
+        var solution3Highlight1Img = new Image;
+        solution3Highlight1Img.src = solution3Highlight1;
+
+        var solution3Highlight2Img = new Image;
+        solution3Highlight2Img.src = "https://farrismat.files.wordpress.com/2019/01/solution3highlight2.png";
+        
+        var solution3Highlight3Img = new Image;
+        solution3Highlight3Img.src = "https://farrismat.files.wordpress.com/2019/01/solution3highlight3.png";
+
+        var solution3Highlight4Img = new Image;
+        solution3Highlight4Img.src = "https://farrismat.files.wordpress.com/2019/01/solution3highlight4.png";
+
+        // Image Preparations
+        var mathBackground = canvas.getContext('2d');
+        var theMenuTitle = canvas.getContext('2d');
+        var pictureDrawer = canvas.getContext('2d');
+
+        // Variables for each button.
+        // Problem 1 button
+        var PROBLEM_1_BUTTON_X = 100;
+        var PROBLEM_1_BUTTON_Y = 480;
+        var PROBLEM_1_BUTTON_WIDTH = 300;
+        var PROBLEM_1_BUTTON_HEIGHT = 135;
+
+        // Problem 2 button
+        var PROBLEM_2_BUTTON_X = 600;
+        var PROBLEM_2_BUTTON_Y = 480;
+        var PROBLEM_2_BUTTON_WIDTH = 300;
+        var PROBLEM_2_BUTTON_HEIGHT = 135;
+
+        // Problem 3 button
+        var PROBLEM_3_BUTTON_X = 1100;
+        var PROBLEM_3_BUTTON_Y = 480;
+        var PROBLEM_3_BUTTON_WIDTH = 300;
+        var PROBLEM_3_BUTTON_HEIGHT = 135;
+
+        // Back button
+        var BACK_BUTTON_X = 20;
+        var BACK_BUTTON_Y = 20;
+        var BACK_BUTTON_WIDTH = 80;
+        var BACK_BUTTON_HEIGHT = 50;
+
+        // Next button
+        var NEXT_BUTTON_X = 1000;
+        var NEXT_BUTTON_Y = 600;
+        var NEXT_BUTTON_RADIUS = 150;
+
+        // Previous button
+        var PREVIOUS_BUTTON_X = 500;
+        var PREVIOUS_BUTTON_Y = 600;
+        var PREVIOUS_BUTTON_RADIUS = 150;
+
+        // Hint button 1
+        var HINT_BUTTON1_X = 250;
+        var HINT_BUTTON1_Y = 435;
+        var HINT_BUTTON_RADIUS = 100;
+
+        // Hint button 2
+        var HINT_BUTTON2_X = 750;
+        var HINT_BUTTON2_Y = 435;
+
+        // Hint button 3
+        var HINT_BUTTON3_X = 1250;
+        var HINT_BUTTON3_Y = 435;
+
+        var hint1Visible = false;
+        var hint2Visible = false;
+        var hint3Visible = false;
+
+        // Show answer button 1
+        var ANSWER_BUTTON1_X = 600;
+        var ANSWER_BUTTON1_Y = 550;
+        var ANSWER_BUTTON1_WIDTH = 300;
+        var ANSWER_BUTTON1_HEIGHT = 100;
+
+        // Show answer button 2
+        var ANSWER_BUTTON2_X = 600;
+        var ANSWER_BUTTON2_Y = 550;
+        var ANSWER_BUTTON2_WIDTH = 300;
+        var ANSWER_BUTTON2_HEIGHT = 100;
+
+        // Show answer button 3
+        var ANSWER_BUTTON3_X = 600;
+        var ANSWER_BUTTON3_Y = 550;
+        var ANSWER_BUTTON3_WIDTH = 300;
+        var ANSWER_BUTTON3_HEIGHT = 100;
+
+        // Full solution button 1
+        var SOLUTION_BUTTON1_X = 550;
+        var SOLUTION_BUTTON1_Y = 648;
+        var SOLUTION_BUTTON1_WIDTH = 400;
+        var SOLUTION_BUTTON1_HEIGHT = 42;
+
+        // Full solution button 2
+        var SOLUTION_BUTTON2_X = 550;
+        var SOLUTION_BUTTON2_Y = 648;
+        var SOLUTION_BUTTON2_WIDTH = 400;
+        var SOLUTION_BUTTON2_HEIGHT = 42;
+
+        // Full solution button 3
+        var SOLUTION_BUTTON3_X = 550;
+        var SOLUTION_BUTTON3_Y = 648;
+        var SOLUTION_BUTTON3_WIDTH = 400;
+        var SOLUTION_BUTTON3_HEIGHT = 42;
+
+        // Functions to draw all the buttons
+        // Problem 1 button
+        var menuButton1 = function() {
+            textAlign(CENTER,TOP);
+            textLeading(20);
+            textSize(50);
+
+            if (mouseX > PROBLEM_1_BUTTON_X && mouseX < PROBLEM_1_BUTTON_X+PROBLEM_1_BUTTON_WIDTH && mouseY > PROBLEM_1_BUTTON_Y && mouseY < PROBLEM_1_BUTTON_Y+PROBLEM_1_BUTTON_HEIGHT) {
+                fill(LIGHT_RED, 200)
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(PROBLEM_1_BUTTON_X,PROBLEM_1_BUTTON_Y,PROBLEM_1_BUTTON_WIDTH,PROBLEM_1_BUTTON_HEIGHT);
+                
+                fill(225,225,225);
+                text("Limits of a\nFunction",PROBLEM_1_BUTTON_X+0.5*PROBLEM_1_BUTTON_WIDTH,PROBLEM_1_BUTTON_Y+5);
+            }
+            else {
+                fill(RED, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(PROBLEM_1_BUTTON_X,PROBLEM_1_BUTTON_Y,PROBLEM_1_BUTTON_WIDTH,PROBLEM_1_BUTTON_HEIGHT);
+
+                fill(0,0,0);
+                text("Limits of a\nFunction",PROBLEM_1_BUTTON_X+0.5*PROBLEM_1_BUTTON_WIDTH,PROBLEM_1_BUTTON_Y+5);
+            }
+        };
+
+        // Problem 2 button
+        var menuButton2 = function() {
+            textAlign(CENTER,CENTER);
+            textLeading(20);
+            textSize(50);
+
+            if (mouseX > PROBLEM_2_BUTTON_X && mouseX < PROBLEM_2_BUTTON_X+PROBLEM_2_BUTTON_WIDTH && mouseY > PROBLEM_2_BUTTON_Y && mouseY < PROBLEM_2_BUTTON_Y+PROBLEM_2_BUTTON_HEIGHT) {
+                fill(LIGHT_GREEN, 200)
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(PROBLEM_2_BUTTON_X,PROBLEM_2_BUTTON_Y,PROBLEM_2_BUTTON_WIDTH,PROBLEM_2_BUTTON_HEIGHT);
+                
+                fill(225,225,225);
+                text("Optimization",PROBLEM_2_BUTTON_X+0.5*PROBLEM_2_BUTTON_WIDTH,PROBLEM_2_BUTTON_Y+0.5*PROBLEM_2_BUTTON_HEIGHT);
+            }
+            else {
+                fill(GREEN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(PROBLEM_2_BUTTON_X,PROBLEM_2_BUTTON_Y,PROBLEM_2_BUTTON_WIDTH,PROBLEM_2_BUTTON_HEIGHT);
+
+                fill(0,0,0);
+                text("Optimization",PROBLEM_2_BUTTON_X+0.5*PROBLEM_2_BUTTON_WIDTH,PROBLEM_2_BUTTON_Y+0.5*PROBLEM_2_BUTTON_HEIGHT);
+            }
+        };
+
+        // Problem 3 button
+        var menuButton3 = function() {
+            textAlign(CENTER,TOP);
+            textLeading(20);
+            textSize(50);
+
+            if (mouseX > PROBLEM_3_BUTTON_X && mouseX < PROBLEM_3_BUTTON_X+PROBLEM_3_BUTTON_WIDTH && mouseY > PROBLEM_3_BUTTON_Y && mouseY < PROBLEM_3_BUTTON_Y+PROBLEM_3_BUTTON_HEIGHT) {
+                fill(LIGHT_CYAN, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(PROBLEM_3_BUTTON_X,PROBLEM_3_BUTTON_Y,PROBLEM_3_BUTTON_WIDTH,PROBLEM_3_BUTTON_HEIGHT);
+                
+                fill(225,225,225);
+                text("Vectors and\nPlanes",PROBLEM_3_BUTTON_X+0.5*PROBLEM_3_BUTTON_WIDTH,PROBLEM_3_BUTTON_Y+5);
+            }
+            else {
+                fill(CYAN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(PROBLEM_3_BUTTON_X,PROBLEM_3_BUTTON_Y,PROBLEM_3_BUTTON_WIDTH,PROBLEM_3_BUTTON_HEIGHT);
+
+                fill(0,0,0);
+                text("Vectors and\nPlanes",PROBLEM_3_BUTTON_X+0.5*PROBLEM_3_BUTTON_WIDTH,PROBLEM_3_BUTTON_Y+5);
+            }
+        };
+
+        // Back button
+        var backButton = function() {
+            textAlign(CENTER,CENTER);
+            textSize(30);
+
+            if (mouseX > BACK_BUTTON_X && mouseX < BACK_BUTTON_X+BACK_BUTTON_WIDTH && mouseY > BACK_BUTTON_Y && mouseY < BACK_BUTTON_Y+BACK_BUTTON_HEIGHT) {
+                fill(LIGHTEST_GRAY, 200);
+                stroke(DARKER_GRAY, 200);
+                strokeWeight(5);
+                rect(BACK_BUTTON_X,BACK_BUTTON_Y,BACK_BUTTON_WIDTH,BACK_BUTTON_HEIGHT);
+
+                fill(225, 225, 225);
+                text("Back",BACK_BUTTON_X+0.5*BACK_BUTTON_WIDTH,BACK_BUTTON_Y+0.5*BACK_BUTTON_HEIGHT);
+            }
+            else {
+                fill(LIGHT_GRAY, 150);
+                stroke(DARKER_GRAY, 150)
+                strokeWeight(5);
+                rect(BACK_BUTTON_X,BACK_BUTTON_Y,BACK_BUTTON_WIDTH,BACK_BUTTON_HEIGHT);
+
+                fill(0,0,0);
+                text("Back",BACK_BUTTON_X+0.5*BACK_BUTTON_WIDTH,BACK_BUTTON_Y+0.5*BACK_BUTTON_HEIGHT)
+            }
+        };
+
+        // Next button (for solutions)
+        var nextButton = function() {
+            textAlign(CENTER, TOP);
+            textLeading(20);
+            textSize(45);
+
+            if (sqrt((sq(mouseX - NEXT_BUTTON_X))+(sq(mouseY-NEXT_BUTTON_Y))) < 0.5*NEXT_BUTTON_RADIUS) {
+                fill(LIGHT_RED, 200);
+                stroke(LIGHTISH_GRAY, 200)
+                strokeWeight(8);
+                ellipse(NEXT_BUTTON_X, NEXT_BUTTON_Y, NEXT_BUTTON_RADIUS, NEXT_BUTTON_RADIUS);
+                
+                fill(225,225,225);
+                text("Next\nStep", NEXT_BUTTON_X, NEXT_BUTTON_Y - 0.35*NEXT_BUTTON_RADIUS);
+            }
+            else {
+                fill(RED, 150);
+                stroke(GRAY, 150);
+                strokeWeight(8);
+                ellipse(NEXT_BUTTON_X, NEXT_BUTTON_Y, NEXT_BUTTON_RADIUS, NEXT_BUTTON_RADIUS);
+                
+                fill(0,0,0);
+                text("Next\nStep", NEXT_BUTTON_X, NEXT_BUTTON_Y - 0.35*NEXT_BUTTON_RADIUS);
+            }
+        };
+
+        // Previous button (for solutions)
+        var previousButton = function() {
+            textAlign(CENTER, TOP);
+            textLeading(20);
+            textSize(45);
+
+            if (sqrt((sq(mouseX - PREVIOUS_BUTTON_X))+(sq(mouseY - PREVIOUS_BUTTON_Y))) < 0.5*PREVIOUS_BUTTON_RADIUS) {
+                fill(LIGHT_RED, 200);
+                stroke(LIGHTISH_GRAY, 200);
+                strokeWeight(8);
+                ellipse(PREVIOUS_BUTTON_X, PREVIOUS_BUTTON_Y, PREVIOUS_BUTTON_RADIUS, PREVIOUS_BUTTON_RADIUS)
+
+                fill(225,225,225);
+                text("Last\nStep", PREVIOUS_BUTTON_X, PREVIOUS_BUTTON_Y - 0.35*PREVIOUS_BUTTON_RADIUS);
+            }
+            else {
+                fill(RED, 150);
+                stroke(GRAY, 150);
+                strokeWeight(8);
+                ellipse(PREVIOUS_BUTTON_X, PREVIOUS_BUTTON_Y, PREVIOUS_BUTTON_RADIUS, PREVIOUS_BUTTON_RADIUS);
+
+                fill(0,0,0);
+                text("Last\nStep", PREVIOUS_BUTTON_X, PREVIOUS_BUTTON_Y - 0.35*PREVIOUS_BUTTON_RADIUS);
+            }
+        };
+
+        // Hint button 1
+        var hintButton1 = function(yDown) {
+            textAlign(CENTER, CENTER);
+            textSize(35);
+
+            if (sqrt((sq(mouseX - HINT_BUTTON1_X))+(sq(mouseY - HINT_BUTTON1_Y-yDown))) < 0.5*HINT_BUTTON_RADIUS) {
+                fill(LIGHT_YELLOW, 200);
+                stroke(LIGHT_GRAY, 200);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON1_X, HINT_BUTTON1_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(225,225,225);
+                text("Hint 1", HINT_BUTTON1_X, HINT_BUTTON1_Y+yDown);
+            }
+            else {
+                fill(YELLOW, 150);
+                stroke(GRAY, 150);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON1_X, HINT_BUTTON1_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(0,0,0);
+                text("Hint 1", HINT_BUTTON1_X, HINT_BUTTON1_Y+yDown)
+            }
+        };
+
+        // Hint button 2
+        var hintButton2 = function(yDown) {
+            textAlign(CENTER, CENTER);
+            textSize(35);
+
+            if (sqrt((sq(mouseX - HINT_BUTTON2_X))+(sq(mouseY - HINT_BUTTON2_Y-yDown))) < 0.5*HINT_BUTTON_RADIUS) {
+                fill(LIGHT_YELLOW, 200);
+                stroke(LIGHT_GRAY, 200);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON2_X, HINT_BUTTON2_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(225,225,225);
+                text("Hint 2", HINT_BUTTON2_X, HINT_BUTTON2_Y+yDown);
+            }
+            else {
+                fill(YELLOW, 150);
+                stroke(GRAY, 150);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON2_X, HINT_BUTTON2_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(0,0,0);
+                text("Hint 2", HINT_BUTTON2_X, HINT_BUTTON2_Y+yDown)
+            }
+        };
+
+        // Hint button 3
+        var hintButton3 = function(yDown) {
+            textAlign(CENTER, CENTER);
+            textSize(35);
+
+            if (sqrt((sq(mouseX - HINT_BUTTON3_X))+(sq(mouseY - HINT_BUTTON3_Y-yDown))) < 0.5*HINT_BUTTON_RADIUS) {
+                fill(LIGHT_YELLOW, 200);
+                stroke(LIGHT_GRAY, 200);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON3_X, HINT_BUTTON3_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(225,225,225);
+                text("Hint 3", HINT_BUTTON3_X, HINT_BUTTON3_Y+yDown);
+            }
+            else {
+                fill(YELLOW, 150);
+                stroke(GRAY, 150);
+                strokeWeight(8);
+                ellipse(HINT_BUTTON3_X, HINT_BUTTON3_Y+yDown, HINT_BUTTON_RADIUS, HINT_BUTTON_RADIUS);
+
+                fill(0,0,0);
+                text("Hint 3", HINT_BUTTON3_X, HINT_BUTTON3_Y+yDown)
+            }
+        };
+
+        // View answer 1 button
+        var answer1Button = function() {
+            textAlign(CENTER, TOP);
+            textLeading(20);
+            textSize(40);
+
+            if (mouseX > ANSWER_BUTTON1_X && mouseX < ANSWER_BUTTON1_X+ANSWER_BUTTON1_WIDTH && mouseY > ANSWER_BUTTON1_Y && mouseY < ANSWER_BUTTON1_Y+ANSWER_BUTTON1_HEIGHT) {
+                fill(LIGHT_RED, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON1_X, ANSWER_BUTTON1_Y, ANSWER_BUTTON1_WIDTH, ANSWER_BUTTON1_HEIGHT);
+
+                fill(225,225,225);
+                text("Show the \nAnswer", ANSWER_BUTTON1_X+0.5*ANSWER_BUTTON1_WIDTH, ANSWER_BUTTON1_Y+2);
+            }
+            else {
+                fill(RED, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON1_X, ANSWER_BUTTON1_Y, ANSWER_BUTTON1_WIDTH, ANSWER_BUTTON1_HEIGHT);
+
+                fill(0,0,0);
+                text("Show the \nAnswer", ANSWER_BUTTON1_X+0.5*ANSWER_BUTTON1_WIDTH, ANSWER_BUTTON1_Y+2);
+            }
+        };
+
+        // View answer 2 button
+        var answer2Button = function() {
+            textAlign(CENTER,TOP);
+            textLeading(20);
+            textSize(40);
+
+            if (mouseX > ANSWER_BUTTON2_X && mouseX < ANSWER_BUTTON2_X+ANSWER_BUTTON2_WIDTH && mouseY > ANSWER_BUTTON2_Y && mouseY < ANSWER_BUTTON2_Y+ANSWER_BUTTON2_HEIGHT) {
+                fill(LIGHT_GREEN, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON2_X,ANSWER_BUTTON2_Y,ANSWER_BUTTON2_WIDTH,ANSWER_BUTTON2_HEIGHT);
+                
+                fill(225,225,225);
+                text("Show the\nAnswer",ANSWER_BUTTON2_X+0.5*ANSWER_BUTTON2_WIDTH,ANSWER_BUTTON2_Y+2);
+            }
+            else {
+                fill(GREEN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON2_X,ANSWER_BUTTON2_Y,ANSWER_BUTTON2_WIDTH,ANSWER_BUTTON2_HEIGHT);
+
+                fill(0,0,0);
+                text("Show the\nAnswer",ANSWER_BUTTON2_X+0.5*ANSWER_BUTTON2_WIDTH,ANSWER_BUTTON2_Y+2);
+            };
+        }
+        
+        // View answer 3 button
+        var answer3Button = function() {
+            textAlign(CENTER,TOP);
+            textLeading(20);
+            textSize(40);
+
+            if (mouseX > ANSWER_BUTTON3_X && mouseX < ANSWER_BUTTON3_X+ANSWER_BUTTON3_WIDTH && mouseY > ANSWER_BUTTON3_Y && mouseY < ANSWER_BUTTON3_Y+ANSWER_BUTTON3_HEIGHT) {
+                fill(LIGHT_CYAN, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON3_X,ANSWER_BUTTON3_Y,ANSWER_BUTTON3_WIDTH,ANSWER_BUTTON3_HEIGHT);
+                
+                fill(225,225,225);
+                text("Show the\nAnswer",ANSWER_BUTTON3_X+0.5*ANSWER_BUTTON3_WIDTH,ANSWER_BUTTON3_Y+2);
+            }
+            else {
+                fill(CYAN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(8);
+                rect(ANSWER_BUTTON3_X,ANSWER_BUTTON3_Y,ANSWER_BUTTON3_WIDTH,ANSWER_BUTTON3_HEIGHT);
+
+                fill(0,0,0);
+                text("Show the\nAnswer",ANSWER_BUTTON3_X+0.5*ANSWER_BUTTON3_WIDTH,ANSWER_BUTTON3_Y+2);
+            }
+        };
+
+        // Solution 1 button
+        var solution1Button = function() {
+            textAlign(CENTER,CENTER);
+            textSize(40);
+
+            if (mouseX > SOLUTION_BUTTON1_X && mouseX < SOLUTION_BUTTON1_X+SOLUTION_BUTTON1_WIDTH && mouseY > SOLUTION_BUTTON1_Y && mouseY < SOLUTION_BUTTON1_Y+SOLUTION_BUTTON1_HEIGHT) {
+                fill(LIGHT_RED, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON1_X, SOLUTION_BUTTON1_Y, SOLUTION_BUTTON1_WIDTH, SOLUTION_BUTTON1_HEIGHT);
+
+                fill (225,225,225);
+                text("See full solution",SOLUTION_BUTTON1_X+0.5*SOLUTION_BUTTON1_WIDTH,SOLUTION_BUTTON1_Y+0.5*SOLUTION_BUTTON1_HEIGHT);
+            }
+            else {
+                fill(RED, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON1_X, SOLUTION_BUTTON1_Y, SOLUTION_BUTTON1_WIDTH, SOLUTION_BUTTON1_HEIGHT);
+
+                fill (0,0,0);
+                text("See full solution",SOLUTION_BUTTON1_X+0.5*SOLUTION_BUTTON1_WIDTH,SOLUTION_BUTTON1_Y+0.5*SOLUTION_BUTTON1_HEIGHT);
+            }
+        }
+
+        // Solution 2 button
+        var solution2Button = function() {
+            textAlign(CENTER,CENTER);
+            textSize(40);
+
+            if (mouseX > SOLUTION_BUTTON2_X && mouseX < SOLUTION_BUTTON2_X+SOLUTION_BUTTON2_WIDTH && mouseY > SOLUTION_BUTTON2_Y && mouseY < SOLUTION_BUTTON2_Y+SOLUTION_BUTTON2_HEIGHT) {
+                fill(LIGHT_GREEN, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON2_X,SOLUTION_BUTTON2_Y,SOLUTION_BUTTON2_WIDTH,SOLUTION_BUTTON2_HEIGHT);
+                
+                fill(225,225,225);
+                text("See full solution",SOLUTION_BUTTON2_X+0.5*SOLUTION_BUTTON2_WIDTH,SOLUTION_BUTTON2_Y+0.5*SOLUTION_BUTTON2_HEIGHT);
+            }
+            else {
+                fill(GREEN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON2_X,SOLUTION_BUTTON2_Y,SOLUTION_BUTTON2_WIDTH,SOLUTION_BUTTON2_HEIGHT);
+
+                fill(0,0,0);
+                text("See full solution",SOLUTION_BUTTON2_X+0.5*SOLUTION_BUTTON2_WIDTH,SOLUTION_BUTTON2_Y+0.5*SOLUTION_BUTTON2_HEIGHT);
+            }
+        }
+
+        // Solution 3 button
+        var solution3Button = function() {
+            textAlign(CENTER,CENTER);
+            textSize(40);
+
+            if (mouseX > SOLUTION_BUTTON3_X && mouseX < SOLUTION_BUTTON3_X+SOLUTION_BUTTON3_WIDTH && mouseY > SOLUTION_BUTTON3_Y && mouseY < SOLUTION_BUTTON3_Y+SOLUTION_BUTTON3_HEIGHT) {
+                fill(LIGHT_CYAN, 200);
+                stroke(DARK_GRAY, 200);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON3_X,SOLUTION_BUTTON3_Y,SOLUTION_BUTTON3_WIDTH,SOLUTION_BUTTON3_HEIGHT);
+                
+                fill(225,225,225);
+                text("See full solution",SOLUTION_BUTTON3_X+0.5*SOLUTION_BUTTON3_WIDTH,SOLUTION_BUTTON3_Y+0.5*SOLUTION_BUTTON3_HEIGHT);
+            }
+            else {
+                fill(CYAN, 150);
+                stroke(DARK_GRAY, 150);
+                strokeWeight(4);
+                rect(SOLUTION_BUTTON3_X,SOLUTION_BUTTON3_Y,SOLUTION_BUTTON3_WIDTH,SOLUTION_BUTTON3_HEIGHT);
+
+                fill(0,0,0);
+                text("See full solution",SOLUTION_BUTTON3_X+0.5*SOLUTION_BUTTON3_WIDTH,SOLUTION_BUTTON3_Y+0.5*SOLUTION_BUTTON3_HEIGHT);
+            }
+        };
+        
+        fill(0,0,0);
+        stroke(255,255,255);
+
+        // Functions to draw all the scenes
+        // Drawing the main menu
+        var drawScene1 = function() {
+            background(0, 0, 0);
+
+            // Background image
+            mathBackground.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            theMenuTitle.drawImage(menuTitleImg, 200, 50, 1100, 180);
+
+            // Drawing the buttons
+            menuButton1();
+            menuButton2();
+            menuButton3();
+
+            // Writing the text
+            fill(250,250,250);
+            noStroke();
+            textSize(60);
+            textAlign(CENTER,CENTER);
+            text("Click on a problem to start!",750,350);
+        };
+
+        // Drawing the first problem screen
+        var drawScene2_1 = function() {
+            mathBackground.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            pictureDrawer.drawImage(problemPageTitleImg, 450, 20, 600, 75);
+            backButton();
+
+            // Highlight 1
+            if (mouseX > 565 && mouseX < 927 && mouseY > 235 && mouseY < 287) {
+                fill(LIGHTER_TEAL, 200);
+                noStroke();
+                rect(565, 235, 362, 52);
+            }
+            else {
+                fill(LIGHT_TEAL, 150);
+                noStroke();
+                rect(565, 235, 362, 52);
+            }
+
+            pictureDrawer.drawImage(problemPageTitleImg, 450, 20, 600, 75);
+            pictureDrawer.drawImage(problem1TitleImg, 200, 100, 1100, 180);
+
+            // Hints
+            if (hint1Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Start by factoring the\ndenominator and seeing what makes\nthis limit hard to calculate.", HINT_BUTTON1_X, HINT_BUTTON1_Y-30);
+            }
+            else if (!solution1Visible){
+                hintButton1(0);
+            }
+
+            if (hint2Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Figure out how to cancel the\nterm in the denominator that\ndoesn't allow x to equal 3.", HINT_BUTTON2_X, HINT_BUTTON2_Y-30);
+            }
+            else if (!solution1Visible){
+                hintButton2(0);
+            }
+
+            if (hint3Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Once you have the value of k,\nyou still need to put it back in the\nfunction and solve for the limit.", HINT_BUTTON3_X, HINT_BUTTON3_Y-30);
+            }
+            else if (!solution1Visible){
+                hintButton3(0);
+            }
+
+            if (solution1Visible) {
+                solution1Button();
+                pictureDrawer.drawImage(problem1SolutionImg, 318, 550, 865, 90);
+            }
+            else {
+                answer1Button();
+            }
+
+            // Highlight blurbs
+            if (mouseX > 565 && mouseX < 927 && mouseY > 235 && mouseY < 287) {
+                pictureDrawer.drawImage(problem1Highlight1Img, 590, 287, 350, 300);
+            }
+        };
+
+        // Drawing the second problem screen
+        var drawScene2_2 = function() {
+            mathBackground.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            backButton();
+
+            // Highlight 1
+            if (mouseX > 200 && mouseX < 830 && mouseY > 307 && mouseY < 342) {
+                fill(LIGHTER_ORANGE, 200);
+                noStroke();
+                rect(200, 307, 630, 35);
+            }
+            else {
+                fill(LIGHT_ORANGE, 150);
+                noStroke();
+                rect(200, 307, 630, 35);
+            }
+            // Highlight 2
+            if (mouseX > 700 && mouseX < 1220 && mouseY > 343 && mouseY < 377) {
+                fill(LIGHTER_TEAL, 200);
+                noStroke();
+                rect(700, 343, 520, 34);
+            }
+            else {
+                fill(LIGHT_TEAL, 150);
+                noStroke();
+                rect(700, 343, 520, 34);
+            }
+
+            pictureDrawer.drawImage(problemPageTitleImg, 450, 20, 600, 75);
+            pictureDrawer.drawImage(problem2TitleImg, 200, 85, 1100, 290);
+
+            if (solution2Visible) {
+                pictureDrawer.drawImage(problem2SolutionImg, 318, 550, 865, 90);
+                solution2Button();
+            }
+            else {
+                answer2Button();
+            }
+
+            // Hints
+            if (hint1Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Remember, before any optimization\nquestion, figure out your AMODE -\nwhat are you optimizing?", HINT_BUTTON1_X, HINT_BUTTON1_Y-15);
+            }
+            else if (!solution2Visible){
+                hintButton1(0);
+            }
+
+            if (hint2Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("To optimize something, you always\ntake the derivative of it and\nand set it equal to 0.", HINT_BUTTON2_X, HINT_BUTTON2_Y-15);
+            }
+            else if (!solution2Visible){
+                hintButton2(0);
+            }
+
+            if (hint3Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Don't forget the domain check!\nCheck the question and functions's\ndomain for the boundaries.", HINT_BUTTON3_X, HINT_BUTTON3_Y-15);
+            }
+            else if (!solution2Visible){
+                hintButton3(0);
+            }
+
+            // Highlight blurbs
+            if (mouseX > 200 && mouseX < 830 && mouseY > 307 && mouseY < 342) {
+                pictureDrawer.drawImage(problem2Highlight1Img, 250, 342, 350, 300);
+            }
+            if (mouseX > 700 && mouseX < 1220 && mouseY > 343 && mouseY < 377) {
+                pictureDrawer.drawImage(problem2Highlight2Img, 700, 377, 350, 250);
+            }
+        };
+
+        // Drawing the third problem screen
+        var drawScene2_3 = function() {
+            mathBackground.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            backButton();
+            
+            // Highlight 1
+            if (mouseX > 205 && mouseX < 1310 && mouseY > 192 && mouseY < 235) {
+                fill(LIGHTER_LIME, 200);
+                noStroke();
+                rect(201, 192, 1100, 43);
+            }
+            else {
+                fill(LIGHT_LIME, 150);
+                noStroke();
+                rect(201, 192, 1100, 43);
+            }
+
+            // Highlight 2
+            if (mouseX > 682 && mouseX < 1112 && mouseY > 236 && mouseY < 278) {
+                fill(LIGHTER_TEAL, 200);
+                noStroke();
+                rect(682, 236, 430, 42);
+            }
+            else {
+                fill(LIGHT_TEAL, 150);
+                noStroke();
+                rect(682, 236, 430, 42);
+            }
+
+            // Highlight 3
+            if (mouseX > 385 && mouseX < 1115 && mouseY > 279 && mouseY < 322) {
+                fill(LIGHTER_ORANGE);
+                noStroke();
+                rect(385, 279, 730, 43);
+            }
+            else {
+                fill(LIGHT_ORANGE, 150);
+                noStroke();
+                rect(385, 279, 730, 43);
+            }
+
+            // Hints
+            if (hint1Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("Remember, point C can be anything\nyou like,so long as it works with\nthe Cartesian equation.", HINT_BUTTON1_X, HINT_BUTTON1_Y-15);
+            }
+            else if (!solution3Visible){
+                hintButton1(0);
+            }
+
+            if (hint2Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("The operation between two vectors\nto get one perpendicular to both has\nthe pattern '2, 3, 1, 2'.", HINT_BUTTON2_X, HINT_BUTTON2_Y-15);
+            }
+            else if (!solution3Visible){
+                hintButton2(0);
+            }
+
+            if (hint3Visible) {
+                fill(YELLOW);
+                noStroke();
+                textSize(30);
+                textAlign(CENTER,TOP);
+                textLeading(25);
+                text("If you're stuck on changing the\nmagnitude of the vector, try making it\na unit vector first (magnitude of 1).", HINT_BUTTON3_X, HINT_BUTTON3_Y-15);
+            }
+            else if (!solution3Visible){
+                hintButton3(0);
+            }
+
+            // Solution
+            if (solution3Visible) {
+                pictureDrawer.drawImage(problem3SolutionImg, 318, 550, 865, 90);
+                solution3Button();
+            }
+            else {
+                answer3Button();
+            }
+
+            pictureDrawer.drawImage(problemPageTitleImg, 450, 20, 600, 75);
+            pictureDrawer.drawImage(problem3TitleImg, 200, 102, 1100, 225);
+
+            // Highlight labels
+            if (mouseX > 205 && mouseX < 1310 && mouseY > 192 && mouseY < 235) {
+                pictureDrawer.drawImage(problem3Highlight1Img, 530, 233, 350, 300);
+            }
+            else if (mouseX > 682 && mouseX < 1112 && mouseY > 236 && mouseY < 278) {
+                pictureDrawer.drawImage(problem3Highlight2Img, 800, 277, 350, 300);
+            }
+            else if (mouseX > 385 && mouseX < 1115 && mouseY > 279 && mouseY < 322) {
+                pictureDrawer.drawImage(problem3Highlight3Img, 680, 322, 350, 300);
+            }
+        };
+
+        // Solution 1
+        var drawScene3_1 = function() {
+            pictureDrawer.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            backButton();
+
+            // Highlight for unit coverage
+            if (solution1Index === 0) {
+                if (mouseX > 140 && mouseX < 1360 && mouseY > 5 && mouseY < 90) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(140, 5, 1220, 85);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(140, 5, 1220, 85);
+                }
+            }
+            if (solution1Index === 1) {
+                if (mouseX > 260 && mouseX < 1240 && mouseY > 2 && mouseY < 87) {
+                    fill(LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(260, 2, 980, 85);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(260, 2, 980, 85);
+                }
+            }
+            if (solution1Index === 2) {
+                if (mouseX > 300 && mouseX < 1200 && mouseY > 2 && mouseY < 87) {
+                    fill(LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(300, 2, 900, 85);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(300, 2, 900, 85);
+                }
+                if (mouseX > 85 && mouseX < 415 && mouseY > 268 && mouseY < 308) {
+                    fill(LIGHTER_TEAL, 200);
+                    noStroke();
+                    rect(85, 268, 330, 40);
+                }
+                else {
+                    fill(LIGHT_TEAL, 150);
+                    noStroke();
+                    rect(85, 268, 330, 40);
+                }
+            }
+            if (solution1Index === 5) {
+                if (mouseX > 100 && mouseX < 1400 && mouseY > 2 && mouseY < 87) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(100, 2, 1300, 85);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(100, 2, 1300, 85);
+                }
+            }
+
+            // Drawing the next and previous buttons and step number
+            textSize(70);
+            textAlign(CENTER, CENTER);
+            fill(240, 240, 240);
+            noStroke();
+            text("Step "+(solution1Index+1).toString(), 750, 600);
+
+            if (solution1Index < solution1Parts.length-1) {
+                nextButton();
+            }
+            if (solution1Index > 0) {
+                previousButton();
+            }
+
+            pictureDrawer.drawImage(solution1Parts[solution1Index], 0, 0, 1500, 500);
+
+            // Highlight blurbs
+            if (mouseX > 140 && mouseX < 1360 && mouseY > 5 && mouseY < 90 && solution1Index === 0) {
+                pictureDrawer.drawImage(solution1Highlight1Img, 550, 90, 350, 300);
+            }
+            if (mouseX > 260 && mouseX < 1240 && mouseY > 2 && mouseY < 87 && solution1Index === 1) {
+                pictureDrawer.drawImage(solution1Highlight2Img, 620, 87, 350, 300);
+            }
+            if (mouseX > 300 && mouseX < 1200 && mouseY > 2 && mouseY < 87 && solution1Index === 2) {
+                pictureDrawer.drawImage(solution1Highlight2Img, 630, 87, 350, 300);
+            }
+            if (mouseX > 85 && mouseX < 415 && mouseY > 268 && mouseY < 308 && solution1Index === 2) {
+                pictureDrawer.drawImage(solution1Highlight3Img, 100, 308, 350, 235);
+            }
+            if (mouseX > 100 && mouseX < 1400 && mouseY > 2 && mouseY < 87 && solution1Index === 5) {
+                pictureDrawer.drawImage(solution1Highlight4Img, 560, 87, 350, 300);
+            }
+        };
+
+        // Solution 2
+        var drawSCene3_2 = function() {
+            pictureDrawer.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            backButton();
+
+            // Highlight for unit coverage
+            if (solution2Index === 0) {
+                if (mouseX > 170 && mouseX < 1330 && mouseY > 5 && mouseY < 85) {
+                    fill(LIGHTER_TEAL, 200);
+                    noStroke();
+                    rect(170, 5, 1160, 80);
+                }
+                else {
+                    fill(LIGHT_TEAL, 150);
+                    noStroke();
+                    rect(170, 5, 1160, 80);
+                }
+            }
+            if (solution2Index === 1) {
+                if (mouseX > 15 && mouseX < 440 && mouseY > 180 && mouseY < 240) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(15, 180, 420, 60);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(15, 180, 420, 60);
+                }
+                if (mouseX > 5 && mouseX < 370 && mouseY > 242 && mouseY < 302) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(5, 242, 365, 60);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(5, 242, 365, 60);
+                }
+                if (mouseX > 5 && mouseX < 310 && mouseY > 304 && mouseY < 364) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(5, 304, 305, 60);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(5, 304, 305, 60);
+                }
+                if (mouseX > 900 && mouseX < 1235 && mouseY > 180 && mouseY < 240) {
+                    fill(LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(900, 180, 335, 60);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(900, 180, 335, 60);
+                }
+            }
+            if (solution2Index === 2) {
+                if (mouseX > 580 && mouseX < 985 && mouseY > 190 && mouseY < 265) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(580, 190, 405, 75);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(580, 190, 405, 75);
+                }
+                if (mouseX > 560 && mouseX < 1060 && mouseY > 267 && mouseY < 342) {
+                    fill(LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(560, 267, 500, 75);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(560, 267, 500, 75);
+                }
+            }
+            if (solution2Index === 3) {
+                if (mouseX > 95 && mouseX < 1405 && mouseY > 5 && mouseY < 90) {
+                    fill(LIGHTER_TEAL, 200);
+                    noStroke();
+                    rect(95, 5, 1310, 85);
+                }
+                else {
+                    fill(LIGHT_TEAL, 150);
+                    noStroke();
+                    rect(95, 5, 1310, 85);
+                }
+                if (mouseX > 230 && mouseX < 360 && mouseY > 348 && mouseY < 383) {
+                    fill(LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(230, 348, 130, 35);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(230, 348, 130, 35);
+                }
+            }
+            if (solution2Index === 4) {
+                if (mouseX > 105 && mouseX < 1400 && mouseY > 5 && mouseY < 85) {
+                    fill(LIGHTER_TEAL, 200);
+                    noStroke();
+                    rect(105, 5, 1295, 85);
+                }
+                else {
+                    fill(LIGHT_TEAL, 150);
+                    noStroke();
+                    rect(105, 5, 1295, 85);
+                }
+            }
+
+            // Drawing the part of the solution
+            if (solution2Index !== 4) {
+                pictureDrawer.drawImage(solution2Parts[solution2Index], 0, 0, 1500, 500);   
+            }
+            else {
+                pictureDrawer.drawImage(solution2Parts[solution2Index], 0, 5, 1500, 500);
+            }
+
+            // Drawing the next and previous buttons and step number
+            textSize(70);
+            textAlign(CENTER, CENTER);
+            fill(240, 240, 240);
+            noStroke();
+            text("Step "+(solution2Index+1).toString(), 750, 600);
+
+            if (solution2Index < solution2Parts.length-1) {
+                nextButton();
+            }
+            if (solution2Index > 0) {
+                previousButton();
+            }
+
+            // Highlight blurbs
+            if (mouseX > 170 && mouseX < 1330 && mouseY > 5 && mouseY < 85 && solution2Index === 0) {
+                pictureDrawer.drawImage(solution2Highlight1Img, 500, 85, 350, 235);
+            }
+            if (mouseX > 15 && mouseX < 440 && mouseY > 180 && mouseY < 240 && solution2Index === 1) {
+                pictureDrawer.drawImage(solution2Highlight2Img, 80, 240, 350, 150);
+            }
+            if (mouseX > 5 && mouseX < 370 && mouseY > 242 && mouseY < 302 && solution2Index === 1) {
+                pictureDrawer.drawImage(solution2Highlight2Img, 65, 302, 350, 150);
+            }
+            if (mouseX > 5 && mouseX < 310 && mouseY > 304 && mouseY < 364 && solution2Index === 1) {
+                pictureDrawer.drawImage(solution2Highlight3Img, 50, 364, 350, 205);
+            }
+            if (mouseX > 900 && mouseX < 1235 && mouseY > 180 && mouseY < 240 && solution2Index === 1) {
+                pictureDrawer.drawImage(solution2Highlight4Img, 945, 240, 350, 280);
+            }
+            if (mouseX > 560 && mouseX < 1060 && mouseY > 267 && mouseY < 342 && solution2Index === 2) {
+                pictureDrawer.drawImage(solution2Highlight4Img, 620, 342, 350, 280);
+            }
+            if (mouseX > 580 && mouseX < 985 && mouseY > 190 && mouseY < 265 && solution2Index === 2) {
+                pictureDrawer.drawImage(solution2Highlight5Img, 615, 265, 350, 205);
+            }
+            if (mouseX > 95 && mouseX < 1405 && mouseY > 5 && mouseY < 90 && solution2Index === 3) {
+                pictureDrawer.drawImage(solution2Highlight6Img, 500, 90, 350, 220);
+            }
+            if (mouseX > 105 && mouseX < 1400 && mouseY > 5 && mouseY < 85 && solution2Index === 4) {
+                pictureDrawer.drawImage(solution2Highlight7Img, 495, 90, 350, 220);
+            }
+            if (mouseX > 230 && mouseX < 360 && mouseY > 348 && mouseY < 383 && solution2Index === 3) {
+                pictureDrawer.drawImage(solution2Highlight8Img, 120, 383, 350, 280);
+            }
+        };
+
+        // Solution 3
+        var drawScene3_3 = function() {
+            pictureDrawer.drawImage(menuBackgroundImg, 0, 0, WIDTH, HEIGHT);
+            backButton();
+            
+            // Highlight for unit coverage
+            if (solution3Index === 0) {
+                if (mouseX > 555 && mouseX < 1310 && mouseY > 5 && mouseY < 85) {
+                    fill (LIGHTER_LIME, 200);
+                    noStroke();
+                    rect(555, 5, 755, 80);
+                }
+                else {
+                    fill(LIGHT_LIME, 150);
+                    noStroke();
+                    rect(555, 5, 755, 80);
+                }
+            }
+            else if (solution3Index === 1) {
+                if (mouseX > 605 && mouseX < 1265 && mouseY > 5 && mouseY < 85) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(605, 5, 660, 80);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(605, 5, 660, 80);
+                }
+            }
+            else if (solution3Index === 2) {
+                if (mouseX > 500 && mouseX < 1375 && mouseY > 5 && mouseY < 85) {
+                    fill(LIGHTER_TEAL, 200);
+                    noStroke();
+                    rect(500, 5, 875, 80);
+                }
+                else {
+                    fill(LIGHT_TEAL, 150);
+                    noStroke();
+                    rect(500, 5, 875, 80);
+                }
+            }
+            else if (solution3Index === 3) {
+                if (mouseX > 485 && mouseX < 1405 && mouseY > 5 && mouseY < 85) {
+                    fill(LIGHTER_ORANGE, 200);
+                    noStroke();
+                    rect(485, 5, 920, 80);
+                }
+                else {
+                    fill(LIGHT_ORANGE, 150);
+                    noStroke();
+                    rect(485, 5, 920, 80);
+                }
+            }
+
+            // Drawing the problem
+            pictureDrawer.drawImage(solution3Parts[solution3Index], 0, 0, 1500, 500);
+
+            // Highlight blurbs
+            if (mouseX > 555 && mouseX < 1310 && mouseY > 5 && mouseY < 85 && solution3Index === 0) {
+                pictureDrawer.drawImage(solution3Highlight1Img, 800, 85, 350, 250);
+            }
+            else if (mouseX > 605 && mouseX < 1265 && mouseY > 5 && mouseY < 85 && solution3Index === 1) {
+                pictureDrawer.drawImage(solution3Highlight2Img, 700, 85, 350, 250);
+            }
+            else if (mouseX > 500 && mouseX < 1375 && mouseY > 5 && mouseY < 85 && solution3Index === 2) {
+                pictureDrawer.drawImage(solution3Highlight3Img, 650, 85, 350, 300);
+            }
+            else if (mouseX > 485 && mouseX < 1405 && mouseY > 5 && mouseY < 85 && solution3Index === 3) {
+                pictureDrawer.drawImage(solution3Highlight4Img, 600, 85, 350, 300);
+            }
+
+            // Drawing the next and previous buttons and step number
+            textSize(70);
+            textAlign(CENTER, CENTER);
+            fill(240, 240, 240);
+            noStroke();
+            text("Step "+(solution3Index+1).toString(), 750, 600);
+
+            if (solution3Index < solution3Parts.length-1) {
+                nextButton();
+            }
+            if (solution3Index > 0) {
+                previousButton();
+            }
+        };
+
+        var drawScene = function() {
+            if (scene === 1) {
+                drawScene1();
+            }
+            else if (scene === 2.1) {
+                drawScene2_1();
+            }
+            else if (scene === 2.2) {
+                drawScene2_2();
+            }
+            else if (scene === 2.3) {
+                drawScene2_3();
+            }
+            else if (scene === 3.1) {
+                drawScene3_1();
+            }
+            else if (scene === 3.2) {
+                drawSCene3_2();
+            }
+            else if (scene == 3.3) {
+                drawScene3_3();
+            }
+        };
+
+        // Draw function to draw everything.
+        draw = function() {
+            drawScene();
+
+            if (justClickedTimer < 10 && justClickedTimer >= 0) {
+                justClickedTimer++;
+            }
+            if (justClickedTimer === 10) {
+                justClicked = false;
+                justClickedTimer = -1;
+            }
+
+            mouseClicked = function() {
+                // Viewing problem 1
+                if (mouseX > PROBLEM_1_BUTTON_X && mouseX < PROBLEM_1_BUTTON_X+PROBLEM_1_BUTTON_WIDTH && mouseY > PROBLEM_1_BUTTON_Y && mouseY < PROBLEM_1_BUTTON_Y+PROBLEM_1_BUTTON_HEIGHT && scene === 1) {
+                    scene = 2.1;
+                    hint1Visible = false;
+                    hint2Visible = false;
+                    hint3Visible = false;
+                    justClicked = true;
+                    justClickedTimer = 0;
+                }
+                // Viewing problem 2
+                if (mouseX > PROBLEM_2_BUTTON_X && mouseX < PROBLEM_2_BUTTON_X+PROBLEM_2_BUTTON_WIDTH && mouseY > PROBLEM_2_BUTTON_Y && mouseY < PROBLEM_2_BUTTON_Y+PROBLEM_2_BUTTON_HEIGHT && scene === 1) {
+                    scene = 2.2;
+                    hint1Visible = false;
+                    hint2Visible = false;
+                    hint3Visible = false;
+                    justClicked = true;
+                    justClickedTimer = 0;
+                }
+                // Viewing problem 3
+                if (mouseX > PROBLEM_3_BUTTON_X && mouseX < PROBLEM_3_BUTTON_X+PROBLEM_3_BUTTON_WIDTH && mouseY > PROBLEM_3_BUTTON_Y && mouseY < PROBLEM_3_BUTTON_Y+PROBLEM_3_BUTTON_HEIGHT && scene === 1) {
+                    scene = 2.3;
+                    hint1Visible = false;
+                    hint2Visible = false;
+                    hint3Visible = false;
+                    justClicked = true;
+                    justClickedTimer = 0;
+                }
+                // Back button
+                if (mouseX > BACK_BUTTON_X && mouseX < BACK_BUTTON_X+BACK_BUTTON_WIDTH && mouseY > BACK_BUTTON_Y && mouseY < BACK_BUTTON_Y+BACK_BUTTON_HEIGHT) {
+                    if (scene === 2.1 || scene === 2.2 || scene === 2.3) {
+                        scene = 1;
+                        solution3Visible = false;
+                        solution2Visible = false;
+                        solution1Visible = false;
+                    }
+                    else if (scene === 3.3) {
+                        scene = 2.3;
+                    }
+                    else if (scene === 3.2) {
+                        scene = 2.2;
+                    }
+                    else if (scene === 3.1) {
+                        scene = 2.1;
+                    }
+                }
+                // Viewing answer 1
+                if (mouseX > ANSWER_BUTTON1_X && mouseX < ANSWER_BUTTON1_X+ANSWER_BUTTON1_WIDTH && mouseY > ANSWER_BUTTON1_Y && mouseY < ANSWER_BUTTON1_Y+ANSWER_BUTTON1_HEIGHT && scene === 2.1 && !justClicked) {
+                    solution1Visible = true;
+                }
+                // Viewing answer 2
+                if (mouseX > ANSWER_BUTTON2_X && mouseX < ANSWER_BUTTON2_X+ANSWER_BUTTON2_WIDTH && mouseY > ANSWER_BUTTON2_Y && mouseY < ANSWER_BUTTON2_Y+ANSWER_BUTTON2_HEIGHT && scene === 2.2 && !justClicked) {
+                    solution2Visible = true;
+                }
+
+                // Viewing answer 3
+                if (mouseX > ANSWER_BUTTON3_X && mouseX < ANSWER_BUTTON3_X+ANSWER_BUTTON3_WIDTH && mouseY > ANSWER_BUTTON3_Y && mouseY < ANSWER_BUTTON3_Y+ANSWER_BUTTON3_HEIGHT && scene === 2.3 && !justClicked) {
+                    solution3Visible = true;
+                }
+
+                // Viewing solution 1
+                if (mouseX > SOLUTION_BUTTON1_X && mouseX < SOLUTION_BUTTON1_X+SOLUTION_BUTTON1_WIDTH && mouseY > SOLUTION_BUTTON1_Y && mouseY < SOLUTION_BUTTON1_Y+SOLUTION_BUTTON1_HEIGHT && scene === 2.1 && solution1Visible) {
+                    scene = 3.1;
+                    solution1Index = 0;
+                }
+
+                // Viewing solution 2
+                if (mouseX > SOLUTION_BUTTON2_X && mouseX < SOLUTION_BUTTON2_X+SOLUTION_BUTTON2_WIDTH && mouseY > SOLUTION_BUTTON2_Y && mouseY < SOLUTION_BUTTON2_Y+SOLUTION_BUTTON2_HEIGHT && scene === 2.2 && solution2Visible) {
+                    scene = 3.2;
+                    solution2Index = 0;
+                }
+
+                // Viewing solution 3
+                if (mouseX > SOLUTION_BUTTON3_X && mouseX < SOLUTION_BUTTON3_X+SOLUTION_BUTTON3_WIDTH && mouseY > SOLUTION_BUTTON3_Y && mouseY < SOLUTION_BUTTON3_Y+SOLUTION_BUTTON3_HEIGHT && scene === 2.3 && solution3Visible) {
+                    scene = 3.3;
+                    solution3Index = 0;
+                }
+                // Next and previous buttons (solution 3)
+                if ((sqrt((sq(mouseX - NEXT_BUTTON_X))+(sq(mouseY - NEXT_BUTTON_Y))) < 0.5*NEXT_BUTTON_RADIUS) && (scene === 3.1 || scene === 3.2 || scene === 3.3)) {
+                    solution1Index++;
+                    solution2Index++;
+                    solution3Index++;
+                    if (solution1Index > solution1Parts.length-1) {
+                        solution1Index --;
+                    }
+                    if (solution2Index > solution2Parts.length-1) {
+                        solution2Index --;
+                    }
+                    if (solution3Index > solution3Parts.length-1) {
+                        solution3Index --;
+                    }
+                }
+
+                if ((sqrt((sq(mouseX - PREVIOUS_BUTTON_X))+(sq(mouseY - PREVIOUS_BUTTON_Y))) < 0.5*PREVIOUS_BUTTON_RADIUS) && (scene === 3.1 || scene === 3.2 || scene === 3.3)) {
+                    solution1Index--;
+                    solution2Index--;
+                    solution3Index--;
+                    if (solution1Index < 0) {
+                        solution1Index = 0;
+                    }
+                    if (solution2Index < 0) {
+                        solution2Index = 0;
+                    }
+                    if (solution3Index < 0) {
+                        solution3Index = 0;
+                    }
+                }
+
+                // Hint buttons
+                if ((sqrt((sq(mouseX - HINT_BUTTON1_X))+(sq(mouseY - HINT_BUTTON1_Y))) < 0.5*HINT_BUTTON_RADIUS) && (scene === 2.1 || scene === 2.2 || scene === 2.3) && !justClicked && !(solution2Visible === true || solution3Visible === true)) {
+                    hint1Visible = true;
+                }
+                if ((sqrt((sq(mouseX - HINT_BUTTON2_X))+(sq(mouseY - HINT_BUTTON2_Y))) < 0.5*HINT_BUTTON_RADIUS) && (scene === 2.1 || scene === 2.2 || scene === 2.3) && !justClicked && !(solution2Visible === true || solution3Visible === true)) {
+                    hint2Visible = true;
+                }
+                if ((sqrt((sq(mouseX - HINT_BUTTON3_X))+(sq(mouseY - HINT_BUTTON3_Y))) < 0.5*HINT_BUTTON_RADIUS) && (scene === 2.1 || scene === 2.2 || scene === 2.3) && !justClicked && !(solution2Visible === true || solution3Visible === true)) {
+                    hint3Visible = true;
+                }
+            };
+        };
+    }};
+	
+    var canvas = document.getElementById("mycanvas"); 
+    
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
